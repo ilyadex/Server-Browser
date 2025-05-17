@@ -8,7 +8,7 @@ CONFIG_FILE = "servers.cfg"
 
 def load_config_path():
     if not os.path.exists(CONFIG_FILE):
-        messagebox.showerror("Ошибка", f"Файл {CONFIG_FILE} не найден.")
+        messagebox.showerror("ERROR", f"file {CONFIG_FILE} not found.")
         return None
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         return f.read().strip()
@@ -51,7 +51,7 @@ class ServerBrowser(tk.Tk):
             self.tree.column(col, width=180 if col != "MOTD" else 300)
         self.tree.pack(expand=True, fill="both", padx=10, pady=10)
 
-        self.copy_button = tk.Button(self, text="Скопировать IP", command=self.copy_selected_ip)
+        self.copy_button = tk.Button(self, text="Copy IP", command=self.copy_selected_ip)
         self.copy_button.pack(pady=5)
 
     def load_data(self):
@@ -77,13 +77,13 @@ class ServerBrowser(tk.Tk):
     def copy_selected_ip(self):
         selected = self.tree.selection()
         if not selected:
-            messagebox.showinfo("Выбор", "Выберите сервер для копирования IP.")
+            messagebox.showinfo("Select", "Select server to copy server IP.")
             return
         ip = self.tree.item(selected[0])["values"][0]
         self.clipboard_clear()
         self.clipboard_append(ip)
         self.update()
-        messagebox.showinfo("Скопировано", f"IP-адрес {ip} скопирован.")
+        messagebox.showinfo("Copy", f"IP-Address {ip} is copyed.")
 
 if __name__ == "__main__":
     app = ServerBrowser()
